@@ -6,6 +6,7 @@ For WebLogic users, it might need to have `weblogic.xml` in _WEB-INF/_ directory
 
 Example WEB-INF/weblogic.xml
 
+```
 <?xml version="1.0" encoding="UTF-8"?>
 <weblogic-web-app xmlns:wls="http://xmlns.oracle.com/weblogic/weblogic-web-app"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
