@@ -29,13 +29,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- graylog2 logback appender -->
-        <dependency>
-            <groupId>me.moocar</groupId>
-            <artifactId>logback-gelf</artifactId>
-            <version>0.9.6p1</version>
-        </dependency>
-
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
