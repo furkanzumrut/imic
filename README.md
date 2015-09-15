@@ -1,8 +1,6 @@
-IMIC project
-
+IMIC Project
 ============
-
-imic is an application that allows to scale and optimize before serving images.
+imic is an application that allows to scale and optimize images before serving.
 
 For WebLogic users, it might need to have `weblogic.xml` in _WEB-INF/_ directory to override libraries come with WebLogic.
 
@@ -18,8 +16,6 @@ Example WEB-INF/weblogic.xml
         http://xmlns.oracle.com/weblogic/weblogic-web-app/1.7/weblogic-web-app.xsd">
 	<container-descriptor>
 		<prefer-application-packages>
-			<package-name>org.joda.*</package-name>
-			<package-name>org.slf4j.*</package-name>
             <package-name>org.apache.commons.*</package-name>
             <package-name>net.sf.ehcache.*</package-name>
 		</prefer-application-packages>
