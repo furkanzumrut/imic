@@ -1,5 +1,7 @@
 IMIC project
+
 ============
+
 imic is an application that allows to scale and optimize before serving images.
 
 For WebLogic users, it might need to have `weblogic.xml` in _WEB-INF/_ directory to override libraries come with WebLogic.
