@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<!--
+Configuration file for Image Optimizer. First path element in servlet path
+will be used to match against provided scale paths. If none found, and no
+<reject /> element is provided, path itself will be used as width specifier.
+
+Original images will be loaded from the location provided by <source> tag.
+Available attributes:
+
+location:
+    Location of original images. If starts with http:// an HTTP request
+    will be performed to retrieve original image, otherwise specified
+    location will be treated as if it's a local folder.
+
+Available attributes for <scale>:
+
+path:
+    first level of the path to match against, case sensitive exact match.
+    can't contain '/' (fwd-slash).
+
+*width:
+    target scale width.
+
+    If width is not specified, but height is, the image will be scaled
+    to specified height and aspect ratio will be kept.
+
+    If neither width nor height is specified and path name is numeric,
+    path will be converted to an int value and the image will be scaled
+    to this value, keeping aspect ratio.
+
+    If path contains non-numeric characters and neither width nor height
+    is specified, the image will not be scaled, only re-encoding will be
+    performed using specified quality factor. This often saves space on
+    poorly encoded JPEG images.
+
+*height:
+    target scale height. see width. if both width and height is specified,
+    the image will be scaled and centered to best-fit the bounding box.
+
+*upscale:
+    Whether if the image will be scaled up to fill specified width/height
+    if it already fits the bounding box. Default: true.
+
+*padding:
+    width of the additional image padding in pixels. a 5px padding and
+    100px scale width will result in a 110px-width image. default: no padding.
+
+*background:
+    color of the background areas after scaling. Also used as the padding
+    area color. default: white (#FFFFFF)
+
+*quality:
+    jpeg quality factor, a value between 0 and 100. default: 80.
+
+*method:
+    scaling method used, may affect output quality and scaling performance.
+    available methods (case sensitive) are:
+
+        - AUTOMATIC
+        - SPEED
+        - BALANCED
+        - QUALITY [*]
+        - ULTRA_QUALITY
+
+    default value is QUALITY.
+
+*progressive:
+    When set to true, output JPEG images will be encoded with progressive method.
+    Default: true.
+
+
+*httpexpires:
+    Determines the value of HTTP Expires and Cache-Control: max-age headers.
+    Specified in seconds, relative to the time of request. Default value is:
+    2592000 seconds (30 days).
+
+(*) Optional attributes are prefixed with an asterisk.
+
+Other tags:
+
+    <reject />
+
+        Disables pass-through proxying. All unknown/unmatched requests
+        to paths that don't match any <scale> or <padscale> paths will be rejected.
+
+    <cache />
+
+        Configures built-in ehcache feature. See ehcache configuration guide for
+        details. By default cached items will go to local heap cache, then to
+        off-heap cache if it's enabled, and at last disk cache will be utilized.
+
+        Available attributes are:
+
+        [eternal] (boolean)
+            Cached items will never be cleaned from cache.
+
+        [maxEntriesLocalHeap]
+            Number of entries local heap can store. Cache data will overflow to
+            disk cache as needed.
+
+        [maxEntriesLocalDisk]
+            Number of entries in disk cache storage.
+
+        [maxEntriesInCache]
+            Maximum number of entries that will be stored in the cache (heap,
+            off-heap and disk combined).
+
+        [diskStorePath]
+            Directory path that will be used as disk cache.
+
+        [maxBytesLocalDisk]
+            Maximum size of local disk cache, in bytes.
+
+        [maxBytesLocalHeap]
+            Maximum size of local heap cache, in bytes.
+
+        [maxBytesLocalOffHeap]
+            Maximum size of local off-heap cache, in bytes. See ehcache
+            configuration guide for details on configuring an off-heap cache.
+
+        [overflowToOffHeap] (boolean)
+            Enable/disable off-heap cache.
+
+-->
+
+<configuration version="1.0">
+    <source location="/vhosting/images" />
+
+    <scales>
+        <!--sample -->
+        <scale path="640" width="640" quality="85" upscale="false" hasPadding="true" />
+        <scale path="500" width="500" quality="95" upscale="false"/>
+
+        <!-- no scaling, just optimize -->
+        <scale path="org" quality="100" />
+    </scales>
+
+    <!-- don't accept requests from undefined paths -->
+    <reject />
+
+    <!-- configuration for ehcache -->
+    <cache diskStorePath="~/tmp/imagecache" maxBytesLocalHeap="1g" maxBytesLocalDisk="10g"/>
+
+</configuration>
